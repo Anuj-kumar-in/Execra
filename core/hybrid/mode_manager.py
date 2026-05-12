@@ -18,7 +18,7 @@ class ModeManager:
     def get_current_mode(self) -> dict:
         descriptions = {
             "passive": "Execra is observing and guiding automatically. No prompts needed.",
-            "active": "You can now ask questions. Execra responds using session context.",
+            "active": "Switched to Active Mode. You can now ask questions.",
             "mixed": "Execra is observing automatically while also accepting your questions."
         }
 
