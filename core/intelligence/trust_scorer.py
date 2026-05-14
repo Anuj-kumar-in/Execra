@@ -1,3 +1,5 @@
+from config import settings
+
 def calculate_trust_score(llm_confidence: float, rule_validation: bool, execution_trace_match: float) -> dict:
     """
     Calculates a weighted reliability score for LLM outputs.
@@ -8,9 +10,9 @@ def calculate_trust_score(llm_confidence: float, rule_validation: bool, executio
         if not (0.0 <= value <= 1.0):
             raise ValueError(f"Input '{name}' must be between 0 and 1. Received: {value}")
 
-    w1 = 0.5
-    w2 = 0.3
-    w3 = 0.2
+    w1 = settings.TRUST_SCORE_W1
+    w2 = settings.TRUST_SCORE_W2
+    w3 = settings.TRUST_SCORE_W3
 
     score = (w1 * llm_confidence + w2 * (1.0 if rule_validation else 0.0) + w3 * execution_trace_match) / (w1 + w2 + w3)
 
