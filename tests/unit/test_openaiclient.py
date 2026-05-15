@@ -39,39 +39,29 @@ def test_init_invalid_api_key():
 
 @pytest.mark.asyncio
 async def test_complete_success(mock_settings):
-    # Setup the mock response
     mock_response = MagicMock()
     mock_response.choices = [MagicMock(message=MagicMock(content="4"))]
 
-    # Patch the class
     with patch("core.intelligence.llm_client.AsyncOpenAI") as mock_openai_class:
         mock_instance = MagicMock()
-        
-        # This one-liner sets up the whole chain and makes the end an AsyncMock
         mock_instance.chat.completions.create = AsyncMock(return_value=mock_response)
-        
         mock_openai_class.return_value = mock_instance
 
         client = OpenAIClient()
-        
-        print(f"DEBUG: Client is {client._OpenAIClient__client}") 
-
         response = await client.complete("what is 2+2")
-        print(response)
+        
         assert response == "4"
 
 @pytest.mark.asyncio
 async def test_complete_raises_exception(mock_settings):
 
     with patch("core.intelligence.llm_client.AsyncOpenAI") as mock_openai:
-
         mock_client = MagicMock()
         mock_client.chat.completions.create = AsyncMock(
             side_effect=Exception("API Failure")
         )
-
+        
         mock_openai.return_value = mock_client
-
         client = OpenAIClient()
 
         with pytest.raises(Exception, match="API Failure"):
@@ -79,7 +69,6 @@ async def test_complete_raises_exception(mock_settings):
 
 @pytest.mark.asyncio
 async def test_stream_success(mock_settings):
-
     chunk1 = MagicMock()
     chunk1.choices = [
         MagicMock(
@@ -99,23 +88,19 @@ async def test_stream_success(mock_settings):
         yield chunk2
 
     with patch("core.intelligence.llm_client.AsyncOpenAI") as mock_openai:
-
         mock_client = MagicMock()
         mock_client.chat.completions.create = AsyncMock(
             return_value=mock_stream()
         )
-
         mock_openai.return_value = mock_client
-
+        
         client = OpenAIClient()
-
         results = []
 
         async for token in client.stream("Hello"):
             results.append(token)
 
         assert results == ["Hello ", "World"]
-
         mock_client.chat.completions.create.assert_awaited_once_with(
             model="gpt-4o",
             messages=[{"role": "user", "content": "Hello"}],
@@ -125,7 +110,6 @@ async def test_stream_success(mock_settings):
 
 @pytest.mark.asyncio
 async def test_stream_skips_none_content(mock_settings):
-
     chunk1 = MagicMock()
     chunk1.choices = [
         MagicMock(
@@ -145,16 +129,13 @@ async def test_stream_skips_none_content(mock_settings):
         yield chunk2
 
     with patch("core.intelligence.llm_client.AsyncOpenAI") as mock_openai:
-
         mock_client = MagicMock()
         mock_client.chat.completions.create = AsyncMock(
             return_value=mock_stream()
         )
-
         mock_openai.return_value = mock_client
-
+        
         client = OpenAIClient()
-
         results = []
 
         async for token in client.stream("test"):
@@ -163,9 +144,7 @@ async def test_stream_skips_none_content(mock_settings):
         assert results == ["Valid"]
 
 def test_extract_confidence(mock_settings):
-
     client = OpenAIClient()
-
     confidence = client.extract_confidence("sample response")
 
     assert isinstance(confidence, float)
