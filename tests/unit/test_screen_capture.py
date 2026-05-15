@@ -74,7 +74,7 @@ def test_start_capture_loop(mock_mss):
 
             assert frame.shape == (1, 1, 3)
 
-            # Verify BGRA -> RGB
+            # Verify BGRA to RGB
             assert frame[0, 0].tolist() == [30, 20, 10]
 
         finally:
