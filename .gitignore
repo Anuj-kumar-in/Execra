@@ -1,0 +1,75 @@
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ========================
+# Virtual Environments
+# ========================
+venv/
+.venv/
+env/
+ENV/
+
+# ========================
+# Environment Variables
+# ========================
+.env
+.env.local
+.env.*.local
+
+# ========================
+# SQLite Databases
+# ========================
+*.db
+*.sqlite3
+
+# ========================
+# IDE / Editor Configs
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db
+
+# ========================
+# Test & Coverage Artifacts
+# ========================
+.pytest_cache/
+htmlcov/
+.coverage
+*.cover
+*.log
+
+# ========================
+# Build & Distribution
+# ========================
+dist/
+build/
+*.egg-info/
+*.egg
+
+# ========================
+# Model Weights (downloaded by scripts/download_models.py)
+# ========================
+*.pt
+*.onnx
+models/*.weights
+
+# ========================
+# Node.js (Electron frontend)
+# ========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

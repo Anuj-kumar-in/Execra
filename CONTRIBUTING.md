@@ -172,22 +172,26 @@ pip install -r requirements.txt
 # 7. Install development dependencies (linters, formatters, test tools)
 pip install -r requirements-dev.txt
 
-# 8. Install frontend dependencies
+# 8. Install pre-commit hooks
+pip install pre-commit
+pre-commit install
+
+# 9. Install frontend dependencies
 cd frontend
 npm install
 cd ..
 
-# 9. Configure environment variables
+# 10. Configure environment variables
 cp .env.example .env
 # Open .env and add your API keys (OpenAI / Gemini)
 
-# 10. Download YOLO model weights
+# 11. Download YOLO model weights
 python scripts/download_models.py
 
-# 11. Verify setup by running tests
+# 12. Verify setup by running tests
 python -m pytest tests/
 
-# 12. Start Execra locally
+# 13. Start Execra locally
 python main.py
 ```
 

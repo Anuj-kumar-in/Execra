@@ -1,6 +1,7 @@
 pytest
 pytest-asyncio
 pytest-cov
+bandit
 black
 isort
 flake8
