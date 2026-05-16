@@ -1,5 +1,9 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="Execra API", version="0.1.0", description="Execra backend API")
 
@@ -16,13 +20,13 @@ app.add_middleware(
 # Startup event
 @app.on_event("startup")
 async def startup_event():
-    print("Execra API starting...")
+    logger.info("Execra API starting...")
 
 
 # Shutdown event
 @app.on_event("shutdown")
 async def shutdown_event():
-    print("Execra API shutting down...")
+    logger.info("Execra API shutting down...")
 
 
 # Root endpoint
